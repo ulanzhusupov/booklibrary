@@ -22,7 +22,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    List<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String bookQuery, String authorQuery);
+    List<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String bookQuery);
+    
+    Page<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String searchQuery, Pageable pageable);
 
     @Query("select new com.ulanzhusupov.booklibrary.entities.Book(b.id, b.name, b.pageCount, b.isbn, b.author, b.genre, b.publisher, b.publishYear, b.image, b.descr, b.viewCount, b.totalRating, b.totalVoteCount, b.avgRating) from Book b")
     Page<Book> findAllWithoutContent(Pageable pageable);

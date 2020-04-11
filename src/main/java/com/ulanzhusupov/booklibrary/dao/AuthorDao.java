@@ -14,6 +14,4 @@ import java.util.List;
  */
 public interface AuthorDao extends MainDao<Author> {
     
-    List<Author> findTopAuthors();
-    
 }
