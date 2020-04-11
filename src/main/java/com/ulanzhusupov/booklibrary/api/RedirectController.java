@@ -7,8 +7,7 @@ package com.ulanzhusupov.booklibrary.api;
 
 import com.ulanzhusupov.booklibrary.entities.Author;
 import com.ulanzhusupov.booklibrary.entities.Book;
-import com.ulanzhusupov.booklibrary.repository.AuthorRepository;
-import com.ulanzhusupov.booklibrary.repository.BookRepository;
+import com.ulanzhusupov.booklibrary.service.AuthorService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
@@ -27,16 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class RedirectController {
-    
     @Autowired
-    private AuthorRepository authorRepository;
+    private AuthorService authorService;
     
-    @Autowired
-    private BookRepository bookRepository;
-    
-    @RequestMapping(value="", method=RequestMethod.GET)
+    @RequestMapping(value="/", method=RequestMethod.GET)
     public String baseUrlRedirect(HttpServletRequest request, HttpServletResponse response) {
-        Page<Author> books = authorRepository.findByFioContainingIgnoreCaseOrderByFio("г", PageRequest.of(1, 10, Sort.DEFAULT_DIRECTION));
+        Page<Author> books = authorService.search(1, 10, "fio", Sort.DEFAULT_DIRECTION,"г");
         System.out.println(books);
         return "ok";
     }

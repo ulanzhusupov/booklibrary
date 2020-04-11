@@ -9,15 +9,19 @@ import com.ulanzhusupov.booklibrary.dao.GenreDao;
 import com.ulanzhusupov.booklibrary.entities.Genre;
 import com.ulanzhusupov.booklibrary.repository.GenreRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author dollar
  */
+@Service
+@Transactional
 public class GenreService implements GenreDao {
 
     @Autowired

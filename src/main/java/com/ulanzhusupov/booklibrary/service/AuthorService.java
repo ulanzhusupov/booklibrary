@@ -10,15 +10,19 @@ import com.ulanzhusupov.booklibrary.entities.Author;
 import com.ulanzhusupov.booklibrary.repository.AuthorRepository;
 import java.util.Arrays;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author dollar
  */
+@Service
+@Transactional
 public class AuthorService implements AuthorDao {
     
     @Autowired

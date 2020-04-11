@@ -6,6 +6,7 @@
 package com.ulanzhusupov.booklibrary.repository;
 
 import com.ulanzhusupov.booklibrary.entities.Book;
+import com.ulanzhusupov.booklibrary.entities.Author;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
@@ -22,9 +23,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
-    List<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String bookQuery);
+//    @Query("select new com.ulanzhusupov.booklibrary.entities.Book(b.id, b.image) from Book b where b")
+//    List<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String bookQuery);
     
-    Page<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String searchQuery, Pageable pageable);
+    Page<Book> findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(String name, String fio, Pageable pageable);
 
     @Query("select new com.ulanzhusupov.booklibrary.entities.Book(b.id, b.name, b.pageCount, b.isbn, b.author, b.genre, b.publisher, b.publishYear, b.image, b.descr, b.viewCount, b.totalRating, b.totalVoteCount, b.avgRating) from Book b")
     Page<Book> findAllWithoutContent(Pageable pageable);
@@ -41,4 +43,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     
     @Query("select new com.ulanzhusupov.booklibrary.entities.Book(b.id, b.name, b.pageCount, b.isbn, b.author, b.genre, b.publisher, b.publishYear, b.image, b.descr, b.viewCount, b.totalRating, b.totalVoteCount, b.avgRating) from Book b where b.genre.id=:id")
     Page<Book> findByGenre(@Param("id") long genreId, Pageable pageable);
+    
+    @Modifying
+    @Query("update Book b set b.viewCount=:viewCount where b.id=:id")
+    void updateViewCount(@Param("id") long bookId, @Param("viewCount") int viewCount);
+    
+    @Modifying
+    @Query("update Book b set b.totalVoteCount=:totalVoteCount, b.totalRating=:totalRating, b.avgRating=:avgRating where b.id=:id")
+    void updateRating(@Param("id") long id, @Param("totalVoteCount") long totalVoteCount, @Param("totalRating") long totalRating, @Param("avgRating") long avgRating);
+    
 }

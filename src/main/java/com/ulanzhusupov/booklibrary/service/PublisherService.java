@@ -9,15 +9,19 @@ import com.ulanzhusupov.booklibrary.dao.PublisherDao;
 import com.ulanzhusupov.booklibrary.entities.Publisher;
 import com.ulanzhusupov.booklibrary.repository.PublisherRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author dollar
  */
+@Service
+@Transactional
 public class PublisherService implements PublisherDao {
 
     @Autowired

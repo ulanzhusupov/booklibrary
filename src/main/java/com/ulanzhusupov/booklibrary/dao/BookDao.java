@@ -23,4 +23,8 @@ public interface BookDao extends MainDao<Book> {
     
     // получение книг по жанру с постраничностью
     Page<Book> getBooksByGenre(int pageNumber, int pageSize, String sortField, Sort.Direction sortDirection, long genreId);
+
+    void updateViewCount(long bookId, int viewCount);
+    
+    void updateRating(long bookId, long totalVoteCount, long totalRating, long avgRating);
 }

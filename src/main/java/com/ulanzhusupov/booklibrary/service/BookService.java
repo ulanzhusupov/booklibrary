@@ -9,15 +9,19 @@ import com.ulanzhusupov.booklibrary.dao.BookDao;
 import com.ulanzhusupov.booklibrary.entities.Book;
 import com.ulanzhusupov.booklibrary.repository.BookRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author dollar
  */
+@Service
+@Transactional
 public class BookService implements BookDao {
     
     @Autowired
@@ -60,7 +64,16 @@ public class BookService implements BookDao {
 
     @Override
     public Book save(Book book) {
-        return bookRepository.save(book);
+        
+        // отдельно сохраняем данные книги
+        bookRepository.save(book);
+        
+        if(book.getContent() != null) {
+            // отдельно сохраняем контент
+            bookRepository.updateContent(book.getId(), book.getContent());
+        }
+        
+        return book;
     }
 
     @Override
@@ -70,12 +83,22 @@ public class BookService implements BookDao {
 
     @Override
     public List<Book> search(String... searchQuery) {
-        return bookRepository.findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(searchQuery[0]);
+        return null;
     }
 
     @Override
     public Page<Book> search(int pageNumber, int pageSize, String sortField, Sort.Direction sortDirection, String... searchQuery) {
-        return bookRepository.findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(searchQuery[0], PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortField)));
+        return bookRepository.findByNameContainingIgnoreCaseOrAuthorFioContainingIgnoreCaseOrderByName(searchQuery[0], searchQuery[0], PageRequest.of(pageNumber, pageSize, Sort.by(sortDirection, sortField)));
+    }
+
+    @Override
+    public void updateViewCount(long bookId, int viewCount) {
+        bookRepository.updateViewCount(bookId, viewCount);
+    }
+
+    @Override
+    public void updateRating(long id, long totalVoteCount, long totalRating, long avgRating) {
+        bookRepository.updateRating(id, totalVoteCount, totalRating, totalRating);
     }
     
 }

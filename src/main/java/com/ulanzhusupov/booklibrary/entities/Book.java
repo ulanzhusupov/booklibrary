@@ -65,14 +65,14 @@ public class Book {
     @Column(name="view_count")
     private Integer viewCount;
     
-    @Column(name="total_rating")
-    private long totalRating;
-    
     @Column(name="total_vote_count")
     private long totalVoteCount;
     
     @Column(name="avg_rating")
-    private int avgRating;
+    private long avgRating;
+    
+    @Column(name="total_rating")
+    private long totalRating;
     
     public Book() {}
     
@@ -81,7 +81,7 @@ public class Book {
         this.image = image;
     }
 
-    public Book(Long id, String name, Integer pageCount, String isbn, Author author, Genre genre, Publisher publisher, Integer publishYear, byte[] image, String descr, Integer viewCount, long totalRating, long totalVoteCount, int avgRating) {
+    public Book(Long id, String name, Integer pageCount, String isbn, Author author, Genre genre, Publisher publisher, Integer publishYear, byte[] image, String descr, Integer viewCount, long totalRating, long totalVoteCount, long avgRating) {
         this.id = id;
         this.name = name;
         this.pageCount = pageCount;
@@ -99,4 +99,121 @@ public class Book {
     }
     
     public String toString() { return name; }
+
+    public Long getId() {
+        return id;
+    }
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getPageCount() {
+        return pageCount;
+    }
+
+    public void setPageCount(Integer pageCount) {
+        this.pageCount = pageCount;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
+
+    public Genre getGenre() {
+        return genre;
+    }
+
+    public void setGenre(Genre genre) {
+        this.genre = genre;
+    }
+
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
+    public Integer getPublishYear() {
+        return publishYear;
+    }
+
+    public void setPublishYear(Integer publishYear) {
+        this.publishYear = publishYear;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
+    }
+
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public long getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(long totalRating) {
+        this.totalRating = totalRating;
+    }
+
+    public long getTotalVoteCount() {
+        return totalVoteCount;
+    }
+
+    public void setTotalVoteCount(long totalVoteCount) {
+        this.totalVoteCount = totalVoteCount;
+    }
+
+    public long getAvgRating() {
+        return avgRating;
+    }
+
+    public void setAvgRating(long avgRating) {
+        this.avgRating = avgRating;
+    }
+    
 }
